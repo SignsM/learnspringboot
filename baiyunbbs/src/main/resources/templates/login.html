@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户登录</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <style>
+        .title{ width: 100%; height: 100px; display: flex; justify-content: center; align-items: center}
+        .title .item{ flex: 1}
+    </style>
+</head>
+<body>
+<div class="page-header"></div>
+<div class="container">
+    <h2 style="text-align: center">用户登录</h2>
+    <div class="title">
+        <div class="item">
+            <div class="item">
+                <nav class="navbar navbar-pills">
+                    <ul class="nav nav-pills test2">
+                        <li role="presentation" class="active"><a href="/toIndex">首页</a></li>
+                        <li role="presentation"><a href="/toReg">注册</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+
+        </div>
+        <h2>www.baiyun.bbs.com</h2>
+
+    </div>
+
+    <div id="msg" th:text="${msg}"  class="alert alert-warning">
+    </div>
+    <div>
+        <form id="user-form"  style="max-width: 330px;padding: 15px;margin: 0 auto;" action="/doLogin" method="post" name="loginForm" onsubmit="return check()">
+            <div class="form-group">
+                <label for="uName">用户名:</label>
+                <input type="text" class="form-control" id="uName" name="uName"  placeholder="请输入用户名" required>
+            </div>
+            <div class="form-group">
+                <label for="uPass">密码:</label>
+                <input type="password" class="form-control" id="uPass" name="uPass"  placeholder="请输入密码" required>
+            </div>
+
+            <input type="submit" value="登录" class="btn-group">
+        </form>
+    </div>
+    <div style="text-align: center;margin-top: 60px;">
+        <strong>2020 BaiYun 版权所有</strong>
+    </div>
+</div>
+
+
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script>
+    //定义check函数，验证表单
+    function check() {
+        if (document.loginForm.uName.value == "") {
+            alert("用户名不可为空");
+            return false;
+        }
+        if (document.loginForm.uPass.value == "") {
+            alert("密码不可为空");
+            return false;
+        }
+
+
+    }
+</script>
+</body>
+</html>

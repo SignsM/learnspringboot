@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.signs123.baiyunbbs.mapper.UserMapper">
+
+
+<!--添加用户-->
+    <insert id="addUser">
+        INSERT INTO tbl_user(uName,uPass,regTime,gender) VALUES (#{uName},#{uPass},#{regTime},#{gender})
+
+
+    </insert>
+
+
+
+
+
+    <delete id="deleteUser">
+        DELETE FROM tbl_user where uId=#{uId}
+    </delete>
+
+    <!--修改用户信息-->
+    <update id="updateUser">
+        UPDATE tbl_user
+        SET
+        uName= #{uName},
+        uPass= #{uPass},
+        gender = #{gender}
+        WHERE uId = #{uId};
+    </update>
+
+
+
+    <!--通过用户名和密码查询用户-->
+    <select id="selectUserByName" resultType="user">
+          select uId,uName,uPass,regTime,gender from tbl_user where uName=#{uName} and uPass=#{uPass}
+    </select>
+   <!--通过用户名查询用户-->
+    <select id="FindUserByName" resultType="user">
+          select uId,uName,uPass,regTime,gender from tbl_user where uName=#{uName}
+    </select>
+
+
+    <select id="selectUserById" resultType="user">
+          select uId,uName,uPass,regTime,gender from tbl_user where uId=#{uId}
+    </select>
+
+</mapper>

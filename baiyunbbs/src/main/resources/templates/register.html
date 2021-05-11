@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户注册</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <style>
+        .title {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        .title .item {
+            flex: 1
+        }
+    </style>
+</head>
+<body>
+<div class="page-header" style="text-align: center">
+
+    <h2><span class="glyphicon glyphicon-plus"></span>用户注册</h2>
+</div>
+<div class="container">
+    <div class="title">
+        <div class="item">
+            <div class="item">
+                <nav class="navbar navbar-pills">
+                    <ul class="nav nav-pills test2">
+                        <li role="presentation" class="active"><a href="/toIndex">首页</a></li>
+                        <li role="presentation"><a href="/toLogin">登录</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+
+        </div>
+        <h2>www.baiyun.bbs.com</h2>
+
+    </div>
+    <div id="msg" th:text="${msg}" class="alert alert-warning">
+
+    </div>
+    <div>
+        <form id="user-form" style="max-width: 330px;padding: 15px;margin: 0 auto;" action="/doReg" method="post"
+              onSubmit="return check()" name="regForm">
+            <div class="form-group">
+                <label for="uName">用户名:</label>
+                <input type="text" class="form-control" id="uName" name="uName" placeholder="请输入用户名" required>
+            </div>
+            <div class="form-group">
+                <label for="uPass">密码:</label>
+                <input type="password" class="form-control" id="uPass" name="uPass" placeholder="请输入密码" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">性别:</label>
+                <select id="gender" name="gender" class="form-control select">
+                    <option value="1" checked="checked">男</option>
+                    <option value="0">女</option>
+                </select>
+            </div>
+
+
+            <input type="submit" class="btn btn-sm success" value="注册"/>
+        </form>
+    </div>
+    <div style="text-align: center;margin-top: 60px;">
+        <strong>2020 BaiYun 版权所有</strong>
+    </div>
+</div>
+
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script>
+    /*
+         $(function () {
+             $(".btn-success").click(function () {
+
+                 //将表单数据封装为json对象
+                 var jsonForm = $("#user-form").serializeArray();
+                 console.log(jsonForm);
+
+                 var jsonData = {};
+
+                 $.each(jsonForm,function (i,v) {
+                     jsonData[v.name] = v.value;
+                 });
+
+                 var params = JSON.stringify(jsonData);
+
+                 $.ajax({
+                     url:"/addUser",
+
+                     data:params,
+                     dataType:"json",
+                     contentType:"application/json",
+                     success:function (result) {
+                         if(result == "success"){
+                             $(location).attr("href","/jsp/login.jsp");
+                         }
+                         else if (result=="exists"){
+                             //提示信息
+                             var msg = "<div class=\"alert alert-warning\" role=\"alert\">用户名已存在!</div>";
+                             $("#msg").html(msg);
+                         } else{
+                             //提示信息
+                             var msg = "<div class=\"alert alert-warning\" role=\"alert\">添加失败!</div>";
+                             $("#msg").html(msg);
+
+                             //2秒后将提示信息消失
+                             setTimeout(function () {
+                                 $("#msg").empty();
+                             },2000);
+                         }
+                     }
+                 });
+             });
+         });
+    */
+
+    $('#uName').mouseleave(function () {
+
+
+        var username = $("#uName").val();
+
+        console.log(username);
+
+        $.ajax({
+            url: "/checkUserByAjax/" + username,
+            type: "get",
+            dataType: "json",
+            //contentType: "application/json",
+            success: function (result) {
+                console.log(result);
+                if (result == "yes") {
+                    var msg = "<p>用户名可用</p>";
+                    $("msg").val(msg);
+                    //3秒后将提示信息消失
+                    setTimeout(function () {
+                        $("#msg").empty();
+                    }, 3000);
+                    return;
+                }
+                if (result == "exists") {
+                    //提示信息
+                    var msg = "<p>用户名已存在!</p>";
+                    $("#msg").html(msg);
+                    //3秒后将提示信息消失
+                    setTimeout(function () {
+                        $("#msg").empty();
+                    }, 3000);
+                    return;
+                }
+
+
+            }
+        });
+        return;
+
+    });
+
+
+    //定义check函数，验证表单
+    function check() {
+        if (document.regForm.uName.value == "") {
+            alert("用户名不可为空");
+            return false;
+        }
+        if (document.regForm.uPass.value == "") {
+            alert("密码不可为空");
+            return false;
+        }
+
+
+    }
+
+</script>
+</body>
+</html>

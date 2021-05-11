@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.signs123.baiyunbbs.mapper.BoardMapper">
+
+    <select id="selectParentBoard" resultType="board">
+
+    select * from tbl_board where parentId in (select boardId from tbl_board where parentId=0)
+
+
+</select>
+
+    <select id="selectBoardByBoardId" resultType="String">
+         select boardName from tbl_board where boardId=#{boardId}
+    </select>
+
+    <select id="selectParentIdByBoard" resultType="Board">
+         select * from tbl_board where boardId=#{boardId}
+    </select>
+
+    <select id="selectBoardByParentId" resultType="Board">
+         select * from tbl_board where parentId=#{parentId}
+    </select>
+
+    <select id="selectBoardIdByParentId" resultType="Board">
+         select * from tbl_board where parentId=#{parentId}
+    </select>
+</mapper>

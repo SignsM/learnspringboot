@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>板块信息</title>
+
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <style>
+        .title{ width: 100%; height: 200px; display: flex; justify-content: center; align-items: center}
+        .title .item{ flex: 1}
+        body{background-color: 	#F0F8FF}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">
+        <div class="item">
+            <div class="item">
+                <img th:src="@{/images/log.png}" height="140">
+            </div>
+
+        </div>
+        <h2 style="font-style: italic;">Welcome to BaiYun Forum</h2>
+    </div>
+
+
+    <div class="page-header">
+
+                  <span th:if="${user1}==null">
+                <li role="presentation" class="alert alert-warning">当前游客状态</li>
+                      </span>
+        <span th:if="${user1}!=null">
+                <li role="presentation" class="alert alert-success active"><a href="/toUpdateUser"
+                                                                              th:text="|欢迎:${user1.uName}|"></a></li> </span>
+    </div>
+    <nav class="navbar navbar-pills  test1">
+        <ul class="nav nav-pills test2">
+            <li role="presentation" class="active"><a href="/toIndex">首页</a></li>
+            <li role="presentation" class="active"><a th:href="@{/toPostTopic(boardId=${boardId})}">我要发帖</a></li>
+        </ul>
+    </nav>
+      <div>
+          <table class="table table-hover">
+            <tr class="warning">
+                <td>#</td>
+                <td>发表人</td>
+                <td>标题</td>
+                <td>内容</td>
+                <td>发表时间</td>
+                <td>上次修改</td>
+                <td>回复数</td>
+                <td>操作</td>
+            </tr>
+
+              <span th:each="boardTopic:${boardTopicMap}">
+                  <tr>
+                  <td th:text="${boardTopicStat.count}"></td>
+               <td th:text="${boardTopic.key.uName}"></td>
+                  <td th:text="${boardTopic.value.title}"></td>
+                    <td th:text="${boardTopic.value.content}"></td>
+                    <td th:text="${boardTopic.value.publishTime}"></td>
+                    <td th:text="${boardTopic.value.modifyTime eq null}?${boardTopic.value.publishTime}:${boardTopic.value.modifyTime}"></td>
+
+                 <td><a th:text="${boardTopic.value.replyNum}" th:href="@{/toShowReply(topicId=${boardTopic.value.topicId},replyNum=${boardTopic.value.replyNum})}"></a></td>
+
+                  <td>
+                      <a type="button" class="btn btn-sm btn-info" th:href="@{/toReply(topicId=${boardTopic.value.topicId},uName=${boardTopic.key.uName})}">回复</a>
+
+                  </td>
+                  </tr>
+
+
+
+              </span>
+          </table>
+          <nav aria-label="Page navigation">
+              <ul class="pagination">
+                  <li role="presentation"><a th:href="@{/toBoard(boardId=${boardId})}">第一页</a></li>
+                  <li role="presentation"><a th:text="|当前第${curPage}页|"></a></li>
+                  <li role="presentation"><a  th:text="|共${pageCount}页|"></a></li>
+                  <li role="presentation"><a th:href="@{/toBoard(boardId=${boardId},pageNum=${curPage}-1)}" aria-label="Previous">上一页</a></li>
+                  <li role="presentation"><a th:href="@{/toBoard(boardId=${boardId},pageNum=${curPage}+1)}" aria-label="Next">下一页</a></li>
+                  <li role="presentation"><a th:href="@{/toBoard(boardId=${boardId},pageNum=${pageCount})}">尾页</a></li>
+              </ul>
+          </nav>
+      </div>
+
+    <p>
+    <div style="text-align: center;margin-top: 60px;">
+        <strong>2020 BaiYun 版权所有</strong>
+    </div>
+
+    </p>
+
+</div>
+
+
+
+
+
+
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>

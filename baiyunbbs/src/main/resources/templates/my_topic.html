@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户帖</title>
+
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <style>
+        body{background-color: 	#F0F8FF}
+
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2><span style="color:#696969;">BaiYun.bbs</span><span style="color: darkseagreen">.com</span></h2>
+    <nav class="navbar navbar-pills">
+        <ul class="nav nav-pills test2">
+            <li role="presentation" class="active"><a href="/toIndex">首页</a></li>
+        </ul>
+    </nav>
+    <div class="page-header">
+        <h4>用户帖子</h4>
+
+    </div>
+    <div id="msg" th:text="${optMsg}" style="color: crimson;">
+
+    </div>
+    <div class="MyTopic">
+        <table class="table table-striped">
+            <tr>
+                <th>#</th>
+                <th>所属板块</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>发表时间</th>
+                <th>上次修改</th>
+                <th>操作</th>
+
+
+            </tr>
+
+            <span th:each="topicInfo:${topicMap}">
+              <tr>
+              <td th:text="${topicInfoStat.count}"></td>
+               <td th:text="${topicInfo.key}"></td>
+                  <td th:text="${topicInfo.value.title}"></td>
+                    <td th:text="${topicInfo.value.content}"></td>
+                    <td th:text="${topicInfo.value.publishTime}"></td>
+                    <td th:text="${topicInfo.value.modifyTime eq null}?${topicInfo.value.publishTime}:${topicInfo.value.modifyTime}"></td>
+                    <td>
+                        <a type="button" class="btn btn-sm btn-danger" th:href="@{/toUpdateTopic(topicId=${topicInfo.value.topicId},type=${'delete'},uId=${topicInfo.value.uId})}" onclick="return confirm('删除后无法恢复，确定吗？')">删除</a>
+                        <a type="button" class="btn btn-sm btn-warning" th:href="@{/toUpdateTopic(topicId=${topicInfo.value.topicId},type=${'update'},uId=${topicInfo.value.uId})}">修改</a>
+                    </td>
+
+          </tr>
+
+
+        </span>
+
+
+
+
+
+        </table>
+
+        <nav aria-label="Page navigation" class="pageController">
+            <ul class="pagination">
+                <li role="presentation"><a th:href="@{/toMyTopic(uId=${uId})}">第一页</a></li>
+                <li role="presentation"><a th:text="|当前第${curPage}页|"></a></li>
+                <li role="presentation"><a  th:text="|共${pageCount}页|"></a></li>
+                <li role="presentation"><a th:href="@{/toMyTopic(uId=${uId},pageNum=${curPage}-1)}" aria-label="Previous">上一页</a></li>
+                <li role="presentation"><a th:href="@{/toMyTopic(uId=${uId},pageNum=${curPage}+1)}" aria-label="Next">下一页</a></li>
+                <li role="presentation"><a th:href="@{/toMyTopic(uId=${uId},pageNum=${pageCount})}">尾页</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <div style="text-align: center;margin-top: 100px;">
+
+        <h1><span style="color:#696969;">BaiYun.bbs</span><span style="color: darkseagreen">.com</span></h1>
+
+    </div>
+
+    <div style="text-align: center;margin-top: 60px;">
+        <strong>2020 BaiYun 版权所有</strong>
+    </div>
+
+</div>
+
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>

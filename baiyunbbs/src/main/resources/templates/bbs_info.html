@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>关于我们</title>
+
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <style th:inline="text">
+
+        </style>
+    <style>
+        *{ padding: 0; margin: 0;}
+        body{ overflow: hidden; height: 100vh;background-color: 	#F0F8FF}
+        section{ height: 100vh;}
+        span{ position: absolute; background-color: white; animation: rotate 3s infinite linear}
+        @keyframes rotate {
+            0%{
+                transform: scale(0) translateY(0) rotate(360deg);
+                opacity: 0;
+            }
+            10%{
+                opacity: 1;
+            }
+            90%{
+                opacity: 1;
+            }
+            100%{
+                transform: scale(1) translateY(-300px) rotate(0deg);
+                opacity: 1;
+            }
+
+        }
+        li{list-style: none}
+        .news
+        {
+            column-count:3;
+            column-gap:40px;
+            column-rule-style:dotted;
+
+            /* Firefox */
+            -moz-column-count:3;
+            -moz-column-gap:40px;
+            -moz-column-rule-style:dotted;
+
+            /* Safari and Chrome */
+            -webkit-column-count:3;
+            -webkit-column-gap:40px;
+            -webkit-column-rule-style:dotted;
+        }
+
+    </style>
+    <script type="text/javascript">
+        window.onload = function(){
+            setInterval(function()  {
+                createSquare();
+            }, 200);
+        }
+        function createSquare(){
+            var section = document.getElementsByTagName("section")[0];
+            var square = document.createElement("span");
+
+            var size = parseInt(Math.random() * 20);
+
+            square.style.width = 20 + size + "px";
+            square.style.height = 20 + size + "px";
+
+            square.style.top = Math.random() * window.innerHeight + "px";
+            square.style.left = Math.random() * window.innerWidth + "px";
+
+            var randomColor = [ "#663333","#330033", "#008866", "#CC9999"];
+
+            var bg = randomColor[parseInt(Math.random() * randomColor.length)];
+            square.style.backgroundColor = bg;
+
+            section.appendChild(square);
+
+            setTimeout(function() {
+                square.remove()
+            }, 3000);
+
+        }
+    </script>
+</head>
+<body>
+<section>
+<div class="container">
+
+    <h2><strong style="color:#696969;">BaiYun.bbs</strong><strong style="color: darkseagreen">.com</strong></h2>
+    <nav class="navbar navbar-pills">
+        <ul class="nav nav-pills test2">
+            <li role="presentation" class="active"><a href="/toIndex">首页</a></li>
+        </ul>
+    </nav>
+    <div class="page-header">
+       <h4>关于我们</h4>
+    </div>
+    <div class="news">
+        BaiYun论坛的 Slogan 为：我们写的不仅是bug，还是梦想
+
+        记住：再牛逼的梦想也抵不住傻逼似的坚持！
+
+        本站域名为 ，<strong>baiyun.bbs.com</strong>,是一个供小伙伴们学习技术，分享bug的地方
+
+        本站包括了HTML、CSS、Javascript、PHP、C、Python等各种基础编程教程。
+
+        同时本站中也提供了大量的在线实例，通过实例，您可以更好地学习如何建站。
+
+        本站致力于推出各种编程语言技术的基础部分，所有资源是完全免费的，并且会根据当前互联网的变化实时更新本站内容。
+
+        同时本站内容如果有不足的地方，也欢迎广大热爱编程的小伙伴们在本站留言提供意见。
+    </div>
+
+    <!--<div>
+        <img th:src="@{/images/01.jpg}" width="70%" height="600px">
+    </div>-->
+    <div style="text-align: center;margin-top: 100px;">
+
+        <h1><strong style="color:#696969;">BaiYun.bbs</strong><strong style="color: darkseagreen">.com</strong></h1>
+
+
+    </div>
+
+    <div style="text-align: center;margin-top: 60px;">
+        <strong>2020 BaiYun 版权所有</strong>
+    </div>
+
+    </div>
+
+
+
+</section>
+
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.signs123.baiyunbbs.mapper.TopicMapper">
+
+    <select id="getAll" resultType="topic">
+        select
+        topicId,
+        title,
+        content,
+        publishTime,
+        modifyTime,
+        uId,
+        boardId from tbl_topic
+
+    </select>
+
+    <select id="selectTopicById" resultType="topic">
+
+        select
+        topicId,
+        title,
+        content,
+        publishTime,
+        modifyTime,
+        uId,
+        boardId
+        from tbl_topic where uId=#{uId} Limit #{pageNum},#{pageSize}
+
+
+
+    </select>
+
+    <select id="selectTopicByTopicId" resultType="topic">
+
+        select
+        topicId,
+        title,
+        content,
+        publishTime,
+        modifyTime,
+        uId,
+        boardId
+        from tbl_topic where topicId=#{topicId}
+
+
+
+    </select>
+
+
+    <select id="selectUserAllTopic" resultType="topic">
+
+        select
+        topicId,
+        title,
+        content,
+        publishTime,
+        modifyTime,
+        uId,
+        boardId
+        from tbl_topic where uId=#{uId}
+
+
+
+    </select>
+
+
+    <select id="selectTopicByBoardId" resultType="topic">
+      select
+        topicId,
+        title,
+        content,
+        publishTime,
+        modifyTime,
+        uId,
+        boardId
+        from tbl_topic where boardId=#{boardId}
+    </select>
+
+    <insert id="addTopic">
+    INSERT INTO tbl_topic
+    (
+    title,
+    content,
+    publishTime,
+    modifyTime,
+    uId,
+    boardId)
+    VALUES
+    (
+    #{title},
+    #{content},
+    #{publishTime},
+    #{modifyTime},
+    #{uId},
+    #{boardId})
+
+</insert>
+
+  <!--回帖-->
+    <insert id="addReply">
+    INSERT INTO tbl_reply
+    (
+    title,
+    content,
+    publishTime,
+    modifyTime,
+    uId,
+    topicId)
+    VALUES
+    (
+    #{title},
+    #{content},
+    #{publishTime},
+    #{modifyTime},
+    #{uId},
+    #{topicId})
+</insert>
+
+    <select id="selectReplyByTopicId" resultType="Reply">
+        select * from  tbl_reply where topicId=#{topicId}
+    </select>
+
+    <!--修改帖子-->
+    <update id="updateTopic">
+        UPDATE tbl_topic
+        SET
+        title = #{title},
+        content=#{content}
+        WHERE topicId=#{topicId}
+    </update>
+
+    <!--删除帖子回复-->
+    <delete id="deleteReplyByTopicId">
+        DELETE FROM tbl_reply
+        WHERE topicId=#{topicId}
+    </delete>
+
+    <!--删除帖子-->
+    <delete id="deleteTopicByTopicId">
+        DELETE FROM tbl_topic
+        WHERE topicId=#{topicId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>帖子信息</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <style>
+        .title{ width: 100%; height: 200px; display: flex; justify-content: center; align-items: center}
+        .title .item{ flex: 1}
+
+         body{background-color: 	#F0F8FF}
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">
+        <div class="item">
+            <div class="item">
+                <img th:src="@{/images/log.png}" height="140">
+            </div>
+
+        </div>
+        <h2 style="font-style: italic;">Welcome to BaiYun Forum</h2>
+    </div>
+
+
+    <div id="msg" th:text="${msg}" style="color:#DC143C">
+
+    </div>
+    <div class="page-header">
+
+                  <span th:if="${user1}==null">
+                <li role="presentation" class="alert alert-warning">当前游客状态</li>
+                      </span>
+        <span th:if="${user1}!=null">
+                <li role="presentation" class="alert alert-success active"><a href="/toUpdateUser"
+                                                                              th:text="|欢迎:${user1.uName}|"></a></li> </span>
+    </div>
+    <nav class="navbar navbar-pills">
+        <ul class="nav nav-pills">
+            <li role="presentation" class="active"><a href="/toIndex">首页</a></li>
+
+        </ul>
+    </nav>
+    <div>
+
+            <li role="presentation" class="alert alert-block"><strong>主贴信息</strong></li>
+
+    </div>
+    <div>
+
+        <table class="table table-striped">
+            <tr>
+
+                <th>帖主</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>发表时间</th>
+            </tr>
+            <tr>
+                <td th:text="${topicUser.uName}"></td>
+                <td th:text="${topic.title}"></td>
+                <td th:text="${topic.content}"></td>
+                <td th:text="${topic.publishTime}"></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+    <li role="presentation" class="alert alert-block"><strong>回复帖</strong></li>
+    </div>
+    <div>
+
+        <table class="table table-striped">
+            <tr>
+                <th>#</th>
+                <th>回帖人</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>回复时间</th>
+            </tr>
+            <span th:each="replyInfo:${replies}">
+             <tr>
+                 <td th:text="${replyInfoStat.count}"></td>
+                 <td th:text="${replyInfo.key.uName}"></td>
+                 <td th:text="${replyInfo.value.title}"></td>
+                 <td th:text="${replyInfo.value.content}"></td>
+                 <td th:text="${replyInfo.value.publishTime}"></td>
+             </tr>
+            </span>
+        </table>
+    </div>
+
+    <p>
+    <div style="text-align: center;margin-top: 60px;">
+        <strong>2020 BaiYun 版权所有</strong>
+    </div>
+
+    </p>
+</div>
+
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>
