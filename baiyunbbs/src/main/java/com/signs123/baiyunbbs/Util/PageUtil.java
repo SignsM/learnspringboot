@@ -1,8 +1,12 @@
 package com.signs123.baiyunbbs.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PageUtil {
+
+
+    private List<String> list=new ArrayList<>();  //git test
 
     /**
      * 开始分页
